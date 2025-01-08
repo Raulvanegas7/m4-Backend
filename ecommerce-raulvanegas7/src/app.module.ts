@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { Products as ProductsModule } from './Products/products.module';
-import { Users as UsersModule } from './Users/users.module';
+import { ProductsModule as ProductsModule } from './Products/products.module';
+import { UsersModule as UsersModule } from './Users/users.module';
 import { AuthModule } from './Auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -8,12 +8,14 @@ import typeOrmConfig from "./config/typeorm"
 import typeorm from './config/typeorm';
 import { OrdersModule } from './Orders/orders.module';
 import { CategoriesModule } from './Categories/categories.module';
+import { SeederModule } from './seeder/seeder.module';
+import { OrderDitailModule } from './OrderDetails/order-detail.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [typeorm]
+      load: [typeOrmConfig]
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
@@ -24,6 +26,8 @@ import { CategoriesModule } from './Categories/categories.module';
     UsersModule, 
     AuthModule, 
     OrdersModule,
+    SeederModule,
+    OrderDitailModule
   ],
   controllers: [],
   providers: [],

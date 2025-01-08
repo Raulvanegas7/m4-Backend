@@ -15,6 +15,16 @@ export class UsersRepository {
             phone: 3127809054,
             country: "colombia",
             city: "cartagena" 
+        },
+        {
+            id: 2,
+            email: "usuario2@gmail.com",
+            name: "user2",
+            password: "user1234",
+            address: "cra25, barrio Nuevo Bosque",
+            phone: 3127809056,
+            country: "colombia",
+            city: "cartagena" 
         }
     ];
 
@@ -22,14 +32,20 @@ export class UsersRepository {
         const startIndex = (page -1) * limit
         const endIndex = (page * limit)
         const paginatedUser = this.users.slice(startIndex, endIndex)
+        // console.log((this.users.length)%limit);
+        // console.log(Math.ceil(this.users.length/limit));
+        
         return paginatedUser.map(({password, ...user}) => user)
+    
         
     }
 
     async getById(id: number) {
-        return this.users.find((user) => {
+        const user = this.users.find((user) => {
             return user.id === id
         })
+        delete user.password;
+        return user;
     }
 
     async createUser(user: User){
@@ -42,16 +58,17 @@ export class UsersRepository {
         return this.users.find((user) => user.email === email)
     }
 
-    getUpdate(id: number) {
+    async getUpdate(id: number) {
         const foundUser = this.users.find((user) => user.id === id)
         return foundUser.id
     }
 
     async getDelete(id: number) {
-        const index = this.users.findIndex(u => u.id == id)
+        const index = this.users.findIndex(u => u.id == id)        
+        
         if(index !== -1){
             this.users.splice(index, 1)
-            return id
+            return id 
         }
         return "Este usuario no existe"
     }

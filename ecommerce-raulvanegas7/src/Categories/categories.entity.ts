@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Product } from "src/Products/product.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import {v4 as uuid} from "uuid"
 
 @Entity({
@@ -9,47 +10,10 @@ export class Category{
     @PrimaryGeneratedColumn("uuid")
     id: string = uuid()
 
-    @Column({
-        type: "varchar",
-        length: 50,
-        nullable: false
-    })
+    @Column({length: 50, nullable: false})
     name: string
 
-    
+    // Relación 1:N con Product
+    @OneToMany(()=> Product,(product) => product.categoryId)
+    product_id: Product[]
 }
-
-
-
-
-
-// import {
-//     Column,
-//     Entity,
-//     PrimaryGeneratedColumn,
-//     OneToOne,
-//     JoinColumn,
-//     CreateDateColumn,
-//     UpdateDateColumn,
-//   } from 'typeorm';
-//   import { v4 as uuid } from 'uuid';
-//   import { Product } from '../products/products.entity';
-  
-//   @Entity({ name: 'categories' })
-//   export class Category {
-//     @PrimaryGeneratedColumn('uuid')
-//     id: string = uuid();
-  
-//     @Column({ length: 50 })
-//     name: string;
-  
-    // @OneToOne(() => Product)
-    // @JoinColumn()
-    // product: Product;
-  
-    // @CreateDateColumn()
-    // createdAt: Date;
-  
-    // @UpdateDateColumn()
-    // updatedAt: Date;
-//   }

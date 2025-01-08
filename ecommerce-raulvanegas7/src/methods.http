@@ -1,0 +1,118 @@
+//Metodos para la entidad Category............................................................
+//..............................................................................................
+//...............................................................................................
+
+POST http://localhost:3000/categories/seeder
+###
+GET http://localhost:3000/categories
+
+###
+POST http://localhost:3000/categories
+Content-Type: application/json
+
+{
+    "name": "smartphone"    // Pregunta
+}
+
+###
+//Metodos para la entidad Product.............................................................
+//..............................................................................................
+//...............................................................................................
+
+###
+POST http://localhost:3000/products/seeder
+
+###
+GET http://localhost:3000/products?page=1&limit=20
+Authorization: basic emails@gmail.com12345
+
+###
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+    "name": "Iphone 30",
+    "description": "The best smartphone in the city",
+    "price": 199.99,
+    "stock": 12,
+    "category": "monitor"
+}
+
+###
+GET http://localhost:3000/products/eebf0ecf-afc7-429a-a653-b16a23fdc389
+
+###
+PUT http://localhost:3000/products/eebf0ecf-afc7-429a-a653-b16a23fdc389
+Content-Type: application/json
+Authorization: basic emails@gmail.com12345
+
+{
+    "name": "Iphone 30",
+    "description": "The best smartphone",
+    "price": 199.99,
+    "stock": 10,
+    "categoryId": {"id": "e507962e-6008-48a7-94b2-a69f6758c567"}
+}
+
+###
+DELETE http://localhost:3000/products/eebf0ecf-afc7-429a-a653-b16a23fdc389
+Authorization: basic emails@gmail.com12345
+
+
+###
+//Metodos para la entidad User................................................................
+//..............................................................................................
+//...............................................................................................
+
+GET http://localhost:3000/users?page=1&limit=26
+Authorization: basic emails@gmail.com12345
+
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "email": "usuario@gmail.com",
+    "name": "user13",
+    "password": "user123",
+    "address": "cra25, barrio Nuevo Bosque",
+    "phone": 3127809,
+    "country": "colombia",
+    "city": "cartagena" 
+}
+
+###
+GET http://localhost:3000/users/f0723ada-6ea4-463e-a4b9-de62544c87ff
+
+###
+PUT http://localhost:3000/users/f0723ada-6ea4-463e-a4b9-de62544c87ff
+Content-Type: application/json
+Authorization: basic emails@gmail.com12345
+
+{    
+    "email": "usuario@gmail.com",
+    "name": "user11 modificado",
+    "password": "user123",
+    "address": "cra25, barrio Nuevo Bosque",
+    "phone": 3127809,
+    "country": "colombia",
+    "city": "cartagena" 
+}
+
+###
+DELETE http://localhost:3000/users/f0723ada-6ea4-463e-a4b9-de62544c87ff
+Authorization: basic emails@gmail.com12345
+
+
+###
+GET http://localhost:3000/orders
+
+###
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+    "userId": "8a96528d-15ae-4233-bb18-f56081b20a63", 
+    "products": [{"id": "f21720e5-a149-42e6-b933-0c6f9e18496e"}, {"id": "0ba5c18f-3457-40e5-9d98-8cdd3725c6e9"}]
+    
+}

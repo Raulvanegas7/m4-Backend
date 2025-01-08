@@ -1,6 +1,6 @@
 import { Category } from "src/Categories/categories.entity"
 import { OrderDetail } from "src/OrderDetails/order-detail.entity"
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
 import {v4 as uuid} from "uuid"
 
 @Entity({
@@ -11,42 +11,32 @@ export class Product{
     @PrimaryGeneratedColumn("uuid")
     id: string = uuid()
 
-    @Column({
-        type: "varchar",
-        length: 50,
-        unique: true,
-        nullable: false
-    })
+    @Column({length: 50, nullable: false })
     name: string
 
-    @Column({
-        type: "text",
-        nullable: false
-    })
+    @Column({type: 'text', nullable: false})
     description: string
 
-    @Column({
-        type: "decimal",
-        nullable: false
-    })
+    @Column({type: 'decimal', precision: 10, scale: 2, nullable: false })
     price: number
 
-    @Column({
-        type: "int",
-        nullable: false
-    })
-    stock: boolean
+    @Column({type: 'int', nullable: false})
+    stock: number
 
     @Column({
         type: "text",
-        default: "colocarImagen"
+        nullable: true,
+        default: 'default-image-url.jpg'
     })
     imgUrl: string
 
-    @ManyToOne(() => Category)
-    categorie_id: Category
+    // Relación N:1 con Category
+    @ManyToOne(() => Category, (category) => category.product_id, { onDelete: 'CASCADE', eager: true })
+    @JoinColumn({ name: "category_id" })
+    categoryId: Category
 
-    // @ManyToMany(() => OrderDetail,(orderDetail) => orderDetail.product_id)
-    // @JoinTable({name: "productOrderDetails"})
-    // orderDetail: OrderDetail[]
+    // Relación N:N con OrderDetail
+    @ManyToMany(() => OrderDetail,(orderDetail) => orderDetail.product_id)
+    @JoinTable({name: "productOrderDetail"})
+    orderDetail_id: OrderDetail[]
 }

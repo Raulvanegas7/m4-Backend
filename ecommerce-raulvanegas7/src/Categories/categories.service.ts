@@ -2,13 +2,23 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Category } from "./categories.entity";
 import { Repository } from "typeorm";
+import { CreateCategoryDto } from "./dto/create-category.dto";
 
 @Injectable()
 export class CategoryService{
     constructor(
         @InjectRepository(Category)
-        private readonly categoryRepository: Repository<Category>)
-        {}
+        private readonly categoryRepository: Repository<Category>
+    ){}
+
+        createCategory(createCategoryDto: CreateCategoryDto){
+            return this.categoryRepository.save(createCategoryDto)
+        }
+        
+        getCategory(){
+            return this.categoryRepository.find()
+        }
+
 
 }
 
@@ -20,49 +30,32 @@ export class CategoryService{
 
 
 
-// // src/category/category.service.ts
-// import { ConflictException, Injectable } from '@nestjs/common';
-// import { InjectRepository } from '@nestjs/typeorm';
-// import { Repository } from 'typeorm';
-// import { Category } from './categories.entity';
-
-// @Injectable()
-// export class CategoryService {
-//   constructor(
-//     @InjectRepository(Category)
-//     private readonly categoryRepository: Repository<Category>,
-//   ) {}
-
-//   async getCategories(): Promise<Category[]> {
-//     return this.categoryRepository.find();
-//   }
-
-//   //   async findOne(id: number): Promise<Category> {
-//   //     return this.categoryRepository.findOneBy({ id });
-//   //   }
-
-//   // async addCategories(category: Category): Promise<Category> {
-//   //   return this.categoryRepository.save(category);
-//   // }
-//   async addCategories(category: Category): Promise<Category> {
-//     // Check if the category already exists
-//     const existingCategory = await this.categoryRepository.findOne({ where: { name: category.name } });
-
-//     if (existingCategory) {
-//         // If the category exists, throw a conflict exception
-//         throw new ConflictException('Category already exists');
-//     }
-
-//     // If the category doesn't exist, save and return it
-//     return this.categoryRepository.save(category);
-//   }
 
 
-//   async update(id: number, category: Category): Promise<void> {
-//     await this.categoryRepository.update(id, category);
-//   }
 
-//   async delete(id: number): Promise<void> {
-//     await this.categoryRepository.delete(id);
-//   }
-// }
+
+
+
+
+
+
+
+// this.seederCategory()   
+        
+        // async seederCategory(){
+
+        //     const seederCategory = [
+        //         {"name": "smartphone"},
+        //         {"name": "monitor"},
+        //         {"name": "keyboard"},
+        //         {"name": "mouse"}
+        //     ]
+
+        //     const existingCategory = (await this.getCategory())
+        //     if(existingCategory.length > 0){                      
+        //         return "Ya existen categorias..."
+        //     } else{
+        //         this.createCategory(seederCategory)                
+        //     }            
+        //     return "Se han creado las categorias"
+        // }

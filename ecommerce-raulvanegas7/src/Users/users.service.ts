@@ -1,31 +1,54 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Body, Inject, Injectable } from "@nestjs/common";
 import { UsersRepository } from "./users.repository";
-import { User } from "./user.interface";
+// import { User } from "./user.interface";
+import { InjectRepository } from "@nestjs/typeorm";
+import { User } from "./user.entity";
+import { Repository } from "typeorm";
+import { CreateUserDto } from "./dto/create-userDto";
+
 
 
 @Injectable()
-export class UserService {
+export class UserService {    
+    constructor(
+        @InjectRepository(User)
+        private readonly userRepository: Repository<User>
+    ){}
     
-    constructor(private userRepository: UsersRepository){}
-    
-    getUsers(page: number , limit: number){
-        return this.userRepository.getUsers(page, limit)
+    getUser(){        
+        return this.userRepository.find()
     }
 
-    getUserById(id: number) {
-        return this.userRepository.getById(id)
+    getUserById(id: any) {
+        try{
+            return this.userRepository.findOne({where: {id}})
+        }catch{
+            throw new BadRequestException("Error al buscar el usuario")
+        }
     }
 
-    createUser(user: User){
-        return this.userRepository.createUser(user)
+    createUser(userBody: any){
+        return this.userRepository.save(userBody)
     }
 
-    updateUser(id: number) {
-        return this.userRepository.getUpdate(id)
+    updateUser(id: any, body: any) {
+        return this.userRepository.update(id, body)
     }
 
-    deleteUser(id: number) {
-        return this.userRepository.getDelete(id)
+    async deleteUser(id: any) {
+        const user = await this.userRepository.findOne({where: {id}})
+        return await this.userRepository.remove(user)
+    }
+
+    async findUsersByEmail(email: string){
+        return await this.userRepository.findOne({where: {email}})
+    }
+
+    pag(page: number, limit: number) {
+        const skip = (page -1) * limit;
+        return this.userRepository.find({skip: skip,
+            take: limit
+        })
     }
    
 }

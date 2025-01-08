@@ -1,11 +1,11 @@
 import { Order } from "src/Orders/order.entity";
 import { Product } from "src/Products/product.entity";
-import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import {v4 as uuid} from "uuid"
 
 
 @Entity({
-    name: "ordersDetails"
+    name: "orderDetails"
 })
 export class OrderDetail{
 
@@ -14,13 +14,15 @@ export class OrderDetail{
   
     @Column('decimal', { precision: 10, scale: 2 })
     price: number;
-  
-    @ManyToOne(()=> Order, /* (order)=> order.orderDetail */)
+    
+    // Relación 1:1 con Orders
+    @OneToOne(()=> Order)
     @JoinColumn({name: "order_id"})
     order_id: Order
-  
-    // @ManyToOne(() => Product)
-    // @JoinColumn({name: "product_id"})
-    // product_id: Product
+
+    // Relación N:N con Products
+    @ManyToMany(() => Product, (product) => product.orderDetail_id) 
+    @JoinColumn({name: "product_id"})
+    product_id: Product[]
 
 }
