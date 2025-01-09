@@ -37,7 +37,7 @@ export class ProductSeeder {
                 newProduct.description = productData.description,
                 newProduct.price = productData.price,
                 newProduct.stock = productData.stock,
-                newProduct.categoryId = await this.findCategories(productData.category)
+                newProduct.category = await this.findCategories(productData.category)
                 await this.productRepository.save(newProduct)
             }else{
                 return "Ya existen productos"

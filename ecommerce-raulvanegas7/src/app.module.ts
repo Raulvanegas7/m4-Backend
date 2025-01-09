@@ -27,7 +27,7 @@ import { OrderDitailModule } from './OrderDetails/order-detail.module';
     AuthModule, 
     OrdersModule,
     SeederModule,
-    OrderDitailModule
+    OrderDitailModule,
   ],
   controllers: [],
   providers: [],

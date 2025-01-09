@@ -42,12 +42,12 @@ Content-Type: application/json
 GET http://localhost:3000/products/eebf0ecf-afc7-429a-a653-b16a23fdc389
 
 ###
-PUT http://localhost:3000/products/eebf0ecf-afc7-429a-a653-b16a23fdc389
+PUT http://localhost:3000/products/29b52261-c5ea-4409-b51b-8064c10e1d91
 Content-Type: application/json
 Authorization: basic emails@gmail.com12345
 
 {
-    "name": "Iphone 30",
+    "name": "Iphone 35",
     "description": "The best smartphone",
     "price": 199.99,
     "stock": 10,
@@ -73,7 +73,7 @@ Content-Type: application/json
 
 {
     "email": "usuario@gmail.com",
-    "name": "user13",
+    "name": "user14",
     "password": "user123",
     "address": "cra25, barrio Nuevo Bosque",
     "phone": 3127809,
@@ -112,7 +112,14 @@ POST http://localhost:3000/orders
 Content-Type: application/json
 
 {
-    "userId": "8a96528d-15ae-4233-bb18-f56081b20a63", 
-    "products": [{"id": "f21720e5-a149-42e6-b933-0c6f9e18496e"}, {"id": "0ba5c18f-3457-40e5-9d98-8cdd3725c6e9"}]
+    "userId": "1e604a60-5430-46d9-b80f-92a285f271cc", 
+    "products": [
+        {"id": "21629a3c-3f4c-4dac-9fc9-8f1fdc087946"},
+        {"id": "58def496-4995-4c81-83d4-835bdce5a437"}
+     ]
     
 }
+
+###
+GET http://localhost:3000/orders/4a359f95-59cf-43da-9bce-c43d77757625
+

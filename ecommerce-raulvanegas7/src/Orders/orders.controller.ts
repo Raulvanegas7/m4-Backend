@@ -9,10 +9,17 @@ export class OrderController{
     ){}
 
     @Post()
-    async createOrders(@Body() createOrderDto: CreateOrderDto){
-        console.log("createOrder", createOrderDto);
-        
-        return await this.orderService.createOrder(createOrderDto)
+    async createOrders(@Body() createOrderDto: CreateOrderDto){        
+    const orderDetail = await this.orderService.createOrder(createOrderDto);
+    
+    return {
+        ...orderDetail,
+        order: {
+            id: orderDetail.order.id,
+            date: orderDetail.order.date,
+            userId: orderDetail.order.user.id, 
+         },
+        };
     }
 
     @Get()
@@ -22,7 +29,7 @@ export class OrderController{
 
     @Get(":id")
     async findOne(@Param("id") id: string ){
-        await this.orderService.findOneOrder(id)
+        return await this.orderService.findOneOrder(id)
     }
 
     @Get(":id")

@@ -13,15 +13,15 @@ export class OrderResponseDto{
         }
     }
 
-    constructor(orderDitail: OrderDetail){
-        this.id = orderDitail.id
-        this.price = orderDitail.price
-        this.product = orderDitail.product_id
+    constructor(orderDetail: OrderDetail){
+        this.id = orderDetail.id
+        this.price = orderDetail.price
+        this.product = orderDetail.product
         this.order = {
-            id: orderDitail.order_id.id,
-            date: orderDitail.order_id.date,
+            id: orderDetail.order.id,
+            date: orderDetail.order.date,
             user: {
-                id: orderDitail.order_id.user_id.id
+                id: orderDetail.order.user.id
             }
         }
     }

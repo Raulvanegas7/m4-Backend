@@ -38,6 +38,6 @@ export class User{
     // createdAt: string
 
     // Relación 1:N con Orders
-    @OneToMany(() => Order, (order) => order.user_id )
-    order_id: Order[]
+    @OneToMany(() => Order, (order) => order.user )
+    order: Order[]
 }

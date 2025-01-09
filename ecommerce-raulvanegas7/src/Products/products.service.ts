@@ -67,7 +67,7 @@ export class ProductsService {
             throw new BadRequestException('La categoría proporcionada no existe.');
         }
 
-        findProduct.categoryId = myCategory;
+        findProduct.category = myCategory;
     }
 
         // Actualizar el resto de los campos del producto
@@ -90,7 +90,7 @@ export class ProductsService {
         await this.productsRepository.update(id, {stock: product.stock - 1})
         
         console.log("Product bought successfully");
-        return product.price
+        return Number(product.price)
     }
     
 }

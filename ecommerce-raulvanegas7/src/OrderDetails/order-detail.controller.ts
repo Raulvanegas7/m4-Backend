@@ -22,5 +22,6 @@ export class OrderDetailController {
     @Get(":id")
     async getOrderDById(@Param("id") id: string){
         return await this.orderDitailService.findOneByOrderId(id)
+        // const orderDetails = await this.orderDetailService.findOneByOrderId(id, ['product']);
     }
 }

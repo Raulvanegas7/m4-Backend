@@ -5,7 +5,7 @@ import {v4 as uuid} from "uuid"
 
 
 @Entity({
-    name: "orderDetails"
+    name: "orderdetails"
 })
 export class OrderDetail{
 
@@ -18,11 +18,11 @@ export class OrderDetail{
     // Relación 1:1 con Orders
     @OneToOne(()=> Order)
     @JoinColumn({name: "order_id"})
-    order_id: Order
+    order: Order
 
     // Relación N:N con Products
-    @ManyToMany(() => Product, (product) => product.orderDetail_id) 
-    @JoinColumn({name: "product_id"})
-    product_id: Product[]
+    @ManyToMany(() => Product, (product) => product.orderDetail) 
+    // @JoinColumn({name: "product_id"})
+    product: Product[]
 
 }

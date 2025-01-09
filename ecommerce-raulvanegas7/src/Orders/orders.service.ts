@@ -9,6 +9,8 @@ import { CreateOrderDto, ProductId } from "./dto/create.orderDto";
 import { OrderResponseDto } from "./dto/order-responseDto";
 import { CreateOrderDetailDto } from "src/OrderDetails/dto/create-orderD.dto";
 
+//pendiente por validar que el usuario solo puede comprar uno por cada producto
+
 @Injectable()
 export class OrderService{
     constructor(
@@ -23,25 +25,27 @@ export class OrderService{
     async createOrder(createOrder: CreateOrderDto){
         const {userId, products} = createOrder
         const findUser = await this.userService.getUserById(userId)
-
+        
+                
         const order = {
             user: findUser,
             date: new Date()
         }
 
         const orderEntity = await this.orderRepository.save(
-            this.orderRepository.create(order)
+          
+          this.orderRepository.create(order)
         )
-
+        
         const total = await this.calculateTotal(products)
-
+        
         const orderDetail = new CreateOrderDetailDto()
         orderDetail.price = total,
         orderDetail.products = products,
         orderDetail.order = orderEntity
-
-        const orderDitailEntity = await this.orderDitailService.createODetail(orderDetail)
-        return new OrderResponseDto(orderDitailEntity)
+        
+        const orderDetailEntity = await this.orderDitailService.createODetail(orderDetail)              
+        return orderDetailEntity;
     }
 
         private async calculateTotal(products: Array<ProductId>){
@@ -68,7 +72,7 @@ export class OrderService{
     async findByUser(id: string){
         const user = await this.userService.getUserById(id)
         const orders = await this.orderRepository.find({
-        where: {user_id: {id: user.id}}
+        where: {user: {id: user.id}}
     })
         return {orders, user}
     }
@@ -77,7 +81,7 @@ export class OrderService{
         return await this.orderRepository.update(id, updateOrderDto)
     }
     
-    remove(id: number){
+    remove(id: any){
         return "Esta accion elimina una orden"
     }
 }

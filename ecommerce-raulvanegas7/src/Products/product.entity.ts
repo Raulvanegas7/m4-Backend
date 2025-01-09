@@ -31,12 +31,12 @@ export class Product{
     imgUrl: string
 
     // Relación N:1 con Category
-    @ManyToOne(() => Category, (category) => category.product_id, { onDelete: 'CASCADE', eager: true })
+    @ManyToOne(() => Category, (category) => category.product, { onDelete: 'CASCADE', eager: true })
     @JoinColumn({ name: "category_id" })
-    categoryId: Category
+    category: Category
 
     // Relación N:N con OrderDetail
-    @ManyToMany(() => OrderDetail,(orderDetail) => orderDetail.product_id)
-    @JoinTable({name: "productOrderDetail"})
-    orderDetail_id: OrderDetail[]
+    @ManyToMany(() => OrderDetail, (orderDetail) => orderDetail.product)
+    @JoinTable({name: "productOrderDetail_id"})
+    orderDetail: OrderDetail[]
 }

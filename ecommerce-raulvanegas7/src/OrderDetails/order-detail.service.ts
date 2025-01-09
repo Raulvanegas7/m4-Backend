@@ -37,7 +37,7 @@ export class OrderDitailService{
         relations: string[] = [],
     ): Promise<OrderDetail[]>{
         return await this.orderDetailRepository.find({
-            where: {order_id: {id: orderId}},
+            where: {order: {id: orderId}},
             relations: relations,
         })
     }

@@ -14,6 +14,6 @@ export class Category{
     name: string
 
     // Relación 1:N con Product
-    @OneToMany(()=> Product,(product) => product.categoryId)
-    product_id: Product[]
+    @OneToMany(()=> Product,(product) => product.category)
+    product: Product[]
 }
